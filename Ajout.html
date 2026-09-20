@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Document sans nom</title>
+	<script src="control.js"></script>
+	
+</head>
+
+<body>
+	<form action="ajout.php" method="get">
+		<fieldset>
+			<legend>Ajout d'un Abonné</legend>
+			<label for="">CIN</label><input type="text" name="cin" id="c"> <br>        
+			<label for="">Nom</label><input type="text" name="nom" id="n"><br>
+			<label for="">Prenom</label><input type="text" name="prenom" id="p"><br>
+			<label for="">Adresse</label><input type="text" name="adresse" id=""><br>
+			<label for="">Email</label><input type="text" name="email" id="e"><br>
+			<input type="submit" value="Enregistrer" onClick="verif()"> <input type="reset" value="Annuler">
+		</fieldset>
+	</form>
+</body>
+</html>

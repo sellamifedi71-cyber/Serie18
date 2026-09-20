@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Document sans nom</title>
+	
+<link href="devoir.css" rel="stylesheet" type="text/css">
+	<script src="abonnement.js"></script>
+</head>
+
+<body>
+	<form action="abonnement.php" method="get">
+		<fieldset>
+			<legend>Ajout d'un Abonné</legend>
+			<label for="">CIN</label><input type="text" name="cin" id=""> <br>        
+			<label for=""> Titre</label><select name="selction" id="">
+				<option value="">Choisir un titre</option>
+				<option value="infl12">Java pour débutants</option>
+				<option value="lit13">Mots fléchés</option>
+				<option value="sci04">Sciences et vie</option>
+			<option value="spt01">Le meilleur du foot</option>
+			</select> <br>
+			<label for="">Date d'échéance</label><input type="text" name="d" id=""><br>
+		<input type="submit" value="Valider"><input type="reset" value="Annuler">
+		</fieldset>
+	</form>
+</body>
+</html>
