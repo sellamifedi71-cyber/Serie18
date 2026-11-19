@@ -1,13 +1,23 @@
 <?php
 declare(strict_types=1);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-session_start();
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    ini_set('session.use_strict_mode', '1');
+    ini_set('session.use_only_cookies', '1');
+    $https = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+    session_set_cookie_params(['lifetime'=>0,'path'=>'/','secure'=>$https,'httponly'=>true,'samesite'=>'Lax']);
+    session_start();
+}
+header('X-Content-Type-Options: nosniff');
+header('Referrer-Policy: strict-origin-when-cross-origin');
+header('X-Frame-Options: SAMEORIGIN');
+$host=getenv('DB_HOST')?:'localhost'; $user=getenv('DB_USER')?:'root'; $password=getenv('DB_PASSWORD')?:''; $database=getenv('DB_NAME')?:'bdabon';
 try {
-    $db = new mysqli('localhost', 'root', '', 'bdabon');
+    $db = new mysqli($host, $user, $password, $database);
     $db->set_charset('utf8mb4');
 } catch (mysqli_sql_exception $e) {
     http_response_code(500);
-    exit('Connexion impossible. Importez bdabon.sql et vérifiez config.php.');
+    exit('Connexion impossible. Importez bdabon.sql et vérifiez les paramètres de base de données.');
 }
 function h(string $value): string { return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); }
 function csrf_token(): string {
