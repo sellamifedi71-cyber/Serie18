@@ -1,0 +1,7 @@
+<?php
+declare(strict_types=1);
+require __DIR__ . '/config.php';
+$sql = 'SELECT a.cin, b.nom, b.prenom, r.titre, a.dateabon, a.dateech FROM abonnement a INNER JOIN abonne b ON b.cin = a.cin INNER JOIN revue r ON r.code = a.code ORDER BY a.dateech DESC';
+$rows = $db->query($sql);
+?>
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Suivi des abonnements — Fedi Bibliothèque</title><link rel="stylesheet" href="fedi.css"></head><body><header><a class="brand" href="index.php"><span>F</span> Fedi Bibliothèque</a><nav><a href="index.php">Accueil</a><a href="ajout.php">Créer un compte</a><a href="abonnement.php">S’abonner</a></nav></header><main class="content wide"><p class="eyebrow">Vue d’ensemble</p><h1>Suivi des abonnements</h1><div class="table-wrap"><table><thead><tr><th>CIN</th><th>Abonné</th><th>Revue</th><th>Début</th><th>Échéance</th><th>Statut</th></tr></thead><tbody><?php if ($rows->num_rows === 0): ?><tr><td colspan="6">Aucun abonnement enregistré.</td></tr><?php else: while ($r = $rows->fetch_assoc()): ?><tr><td><?= h($r['cin']) ?></td><td><?= h($r['prenom'] . ' ' . $r['nom']) ?></td><td><?= h($r['titre']) ?></td><td><?= h($r['dateabon']) ?></td><td><?= h($r['dateech']) ?></td><td><?= $r['dateech'] >= date('Y-m-d') ? 'Actif' : 'Expiré' ?></td></tr><?php endwhile; endif; ?></tbody></table></div></main><footer>Fedi Bibliothèque</footer></body></html>
